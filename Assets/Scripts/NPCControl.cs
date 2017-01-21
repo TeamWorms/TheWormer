@@ -22,6 +22,7 @@ public class NPCControl : MonoBehaviour {
     private bool isGenerateList;
     private bool beginToFollow;
     private bool finishRotate;
+    private float randomJumpTime;
 	// Use this for initialization
 	void Start () {
         myTrans = GetComponent<Transform>();
@@ -31,13 +32,14 @@ public class NPCControl : MonoBehaviour {
         isGenerateList = false;
         beginToFollow = false;
         finishRotate = false;
+        randomJumpTime = 3 * (Random.value+1);
     }
 	
 	// Update is called once per frame
 	void Update () {
         //idle stuff
         timerToJump += Time.deltaTime;
-        if (timerToJump>3&&!beginToFollow)
+        if (timerToJump> randomJumpTime && !beginToFollow)
         {
             rigi.AddForce(new Vector3(0, 300, 0));
             timerToJump = 0;
