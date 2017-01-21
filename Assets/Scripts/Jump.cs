@@ -10,6 +10,8 @@ public class Jump : MonoBehaviour {
     public int directionalForce;
     public GameObject forceModifyingObject;
     public float cooldownInWater;
+    public AudioClip movementSoundLand;
+    public AudioClip movementSoundWater;
 
     public enum MovementState{
         Ground,
@@ -22,12 +24,18 @@ public class Jump : MonoBehaviour {
 
     private KeyCode keyCode;
     private string controllerInputName;
+
     private bool onGround;
     private int forceX = 0;
     private int forceY = 200;
 
-	// Use this for initialization
-	void Start () {
+    public AudioSource audioSource;
+
+    // Use this for initialization
+    void Start () {
+        audioSource = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
+        audioSource.clip = movementSoundLand;
+
         movementState = MovementState.Ground;
         switch (key)
         {
@@ -65,7 +73,8 @@ public class Jump : MonoBehaviour {
                 forceY = jumpForce;
             }
             Vector3 force = new Vector3(forceX, forceY, 0);
-            gameObject.GetComponent<Rigidbody>().AddForce(force); 
+            gameObject.GetComponent<Rigidbody>().AddForce(force);
+            audioSource.PlayOneShot(movementSoundLand, 1F);
         }
         else if(movementState == MovementState.Water && inputDown() && cooldownWaterRemain <= 0) 
         {
@@ -77,6 +86,7 @@ public class Jump : MonoBehaviour {
             Vector3 force = new Vector3(forceX, forceY, 0);
             gameObject.GetComponent<Rigidbody>().AddForce(force);
             cooldownWaterRemain = cooldownInWater;
+            audioSource.PlayOneShot(movementSoundWater, 1F);
         }
         if(cooldownWaterRemain > 0)
         {
