@@ -29,7 +29,7 @@ public class Jump : MonoBehaviour {
     private int forceX = 0;
     private int forceY = 200;
 
-    public AudioSource audioSource;
+    private AudioSource audioSource;
 
     // Use this for initialization
     void Start () {
