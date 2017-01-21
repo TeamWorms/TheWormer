@@ -53,7 +53,8 @@ public class SpringShoot : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.tag != "Player" ||  cooldownRemain > 0) return;
+        if ((col.tag != "Tail" && col.tag != "Head" && col.tag != "Player") ||  cooldownRemain > 0) return;
+        cooldownRemain = cooldown;
         GameObject obj = col.gameObject.transform.parent.gameObject;
         Rigidbody[] rigidBodies = obj.GetComponentsInChildren<Rigidbody>();
         foreach (var rigidbody in rigidBodies)
@@ -61,7 +62,6 @@ public class SpringShoot : MonoBehaviour {
             print("shoot");
             rigidbody.AddForce(transform.localToWorldMatrix * Vector3.up * force, ForceMode.Impulse);
         }
-        cooldownRemain = cooldown;
         animateTimeRemain = animateTime;
     }
 }
