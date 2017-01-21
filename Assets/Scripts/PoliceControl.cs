@@ -21,7 +21,6 @@ public class PoliceControl : MonoBehaviour {
 	void Start () {
         rigi = GetComponent<Rigidbody>();
         myTrans = GetComponent<Transform>();
-        player = GameObject.FindGameObjectWithTag("Player");
         timer = 0;
         lifeTimer = 0;
         spotTimer = 0;
@@ -34,7 +33,7 @@ public class PoliceControl : MonoBehaviour {
 	void Update () {
         timer += Time.deltaTime;
         lifeTimer += Time.deltaTime;
-        if (myTrans.position.x<player.transform.position.x&&!GameContext.isPlayerHid)
+        if (myTrans.position.x<GameControl.Instance.XPositionOfPlayer&& !GameContext.isPlayerHid)
         {
             myTrans.position = new Vector3(myTrans.position.x - speed, myTrans.position.y, myTrans.position.z );
         }
@@ -82,6 +81,5 @@ public class PoliceControl : MonoBehaviour {
         Vector2 nameSize = GUI.skin.label.CalcSize(new GUIContent(TextOfPolice));
         GUI.color = Color.black;
         GUI.Label(new Rect(position.x - (nameSize.x / 2), position.y - nameSize.y, nameSize.x, nameSize.y), TextOfPolice);
-
     }
 }
