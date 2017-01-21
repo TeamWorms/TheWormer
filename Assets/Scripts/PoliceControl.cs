@@ -34,9 +34,9 @@ public class PoliceControl : MonoBehaviour {
 	void Update () {
         timer += Time.deltaTime;
         lifeTimer += Time.deltaTime;
-        if (myTrans.position.z>player.transform.position.z&&!GameContext.isPlayerHid)
+        if (myTrans.position.x<player.transform.position.x&&!GameContext.isPlayerHid)
         {
-            myTrans.position = new Vector3(myTrans.position.x, myTrans.position.y, myTrans.position.z - speed);
+            myTrans.position = new Vector3(myTrans.position.x - speed, myTrans.position.y, myTrans.position.z );
         }
         else
         {
