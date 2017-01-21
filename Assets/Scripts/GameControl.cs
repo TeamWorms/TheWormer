@@ -18,6 +18,10 @@ public class GameControl : MonoBehaviour {
      [HideInInspector]
     public GameObject PlayerParent;
 
+    [HideInInspector]
+    public float XPositionOfPlayer;
+
+
     private float timerToGenerate;
     private float timer;
     static GameControl _instance;
@@ -46,7 +50,11 @@ public class GameControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+        for (int i = 0; i < 4; i++)
+        {
+            XPositionOfPlayer += PlayerJoint[i].transform.position.x;
+        }
+        XPositionOfPlayer /= 4;
         if (PoliceEnable)
         {
             timer += Time.deltaTime;
