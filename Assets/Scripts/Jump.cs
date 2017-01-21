@@ -60,12 +60,12 @@ public class Jump : MonoBehaviour {
 
     bool inputDown()
     {
-        return Input.GetKeyDown(keyCode) || Input.GetButtonDown(controllerInputName);
+        return Input.GetKeyDown(keyCode); //|| Input.GetButtonDown(controllerInputName);
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (movementState == MovementState.Ground && onGround && inputDown())
+        if (movementState == MovementState.Ground && GameContext.playerGroundCount > 0 && inputDown())
         {
             if (forceModifyingObject == null || forceModifyingObject.GetComponent<Jump>().onGround)
             {
@@ -99,6 +99,7 @@ public class Jump : MonoBehaviour {
         if (collision.gameObject.tag == "Ground")
         {
             onGround = true;
+            GameContext.playerGroundCount++;
         }
     }
 
@@ -108,6 +109,7 @@ public class Jump : MonoBehaviour {
         if (collision.gameObject.tag == "Ground")
         {
             onGround = false;
+            GameContext.playerGroundCount--;
         }
     }
 

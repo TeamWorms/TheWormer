@@ -6,4 +6,5 @@ public static class GameContext {
 
     public static bool isPlayerHid;
     public static string Player = "Player";
+    public static int playerGroundCount;
 }
