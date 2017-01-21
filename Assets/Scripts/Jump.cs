@@ -9,6 +9,16 @@ public class Jump : MonoBehaviour {
     public int jumpForce;
     public int directionalForce;
     public GameObject forceModifyingObject;
+    public float cooldownInWater;
+
+    public enum MovementState{
+        Ground,
+        Water
+    }
+
+    public MovementState movementState;
+
+    float cooldownWaterRemain;
 
     private KeyCode keyCode;
     private bool onGround;
@@ -17,6 +27,7 @@ public class Jump : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        movementState = MovementState.Ground;
         switch (key)
         {
             case "q":
@@ -36,7 +47,7 @@ public class Jump : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (onGround && Input.GetKeyDown(keyCode))
+        if (movementState == MovementState.Ground && onGround && Input.GetKeyDown(keyCode))
         {
             if (forceModifyingObject == null || forceModifyingObject.GetComponent<Jump>().onGround)
             {
@@ -45,6 +56,21 @@ public class Jump : MonoBehaviour {
             }
             Vector3 force = new Vector3(forceX, forceY, 0);
             gameObject.GetComponent<Rigidbody>().AddForce(force); 
+        }
+        else if(movementState == MovementState.Water && Input.GetKeyDown(keyCode) && cooldownWaterRemain <= 0) 
+        {
+            if (forceModifyingObject == null || forceModifyingObject.GetComponent<Jump>().onGround)
+            {
+                forceX = directionalForce;
+                forceY = jumpForce;
+            }
+            Vector3 force = new Vector3(forceX, forceY, 0);
+            gameObject.GetComponent<Rigidbody>().AddForce(force);
+            cooldownWaterRemain = cooldownInWater;
+        }
+        if(cooldownWaterRemain > 0)
+        {
+            cooldownWaterRemain -= Time.deltaTime;
         }
 	}
 
@@ -55,6 +81,7 @@ public class Jump : MonoBehaviour {
             onGround = true;
         }
     }
+
 
     private void OnCollisionExit(Collision collision)
     {
