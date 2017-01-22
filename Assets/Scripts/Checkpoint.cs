@@ -18,6 +18,10 @@ public class Checkpoint : MonoBehaviour {
     }
     void OnTriggerEnter(Collider col)
     {
+        for (int i = 0; i < 5; i++)
+        {
+            GameControl.Instance.PlusScore();
+        }
         GameContext.BornPos = bornTransform.position;
         //print(GameContext.BornPos);
         particle.startColor = Color.green; //new Color(123,253,161,255); //
