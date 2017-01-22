@@ -30,6 +30,9 @@ public class GameControl : MonoBehaviour {
     public bool islose;
 
     [HideInInspector]
+    public bool isWin;
+
+    [HideInInspector]
     public CameraFollow camera;
 
     private float timerToGenerate;
