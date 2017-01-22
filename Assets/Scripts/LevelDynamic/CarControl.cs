@@ -26,8 +26,11 @@ public class CarControl : MonoBehaviour {
         {
             if (timer>1.5f&&shinningTime > 0.2)
             {
-                spotLight1.SetActive(islight);
-                spotLight2.SetActive(islight);
+                if (spotLight1!=null&& spotLight2!=null)
+                {
+                    spotLight1.SetActive(islight);
+                    spotLight2.SetActive(islight);
+                }
                 islight = !islight;
                 shinningTime = 0;
             }
