@@ -19,6 +19,7 @@ public class Checkpoint : MonoBehaviour {
     void OnTriggerEnter(Collider col)
     {
         GameContext.BornPos = bornTransform.position;
+        print(GameContext.BornPos);
         GetComponent<MeshRenderer>().material.color = Color.green;
     }
 }
