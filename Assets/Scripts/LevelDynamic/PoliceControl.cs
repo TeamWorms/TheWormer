@@ -8,6 +8,7 @@ public class PoliceControl : MonoBehaviour {
     public float lifetime;
     public float speed;
     public GameObject particle;
+    public AudioClip policeComing;
 
     private Transform myTrans;
     private Rigidbody rigi;
@@ -20,7 +21,9 @@ public class PoliceControl : MonoBehaviour {
     private Transform transOfSpotLight;
     private bool RightRotate;
     private bool isGoAway;
-	void Start () {
+    private AudioSource audioSource;
+    private bool isPlaySound;
+    void Start () {
         rigi = GetComponent<Rigidbody>();
         myTrans = GetComponent<Transform>();
         timer = 0;
@@ -30,12 +33,24 @@ public class PoliceControl : MonoBehaviour {
      
         TextOfPolice = "Police";
         transOfSpotLight = myTrans.FindChild("Spotlight");
+
+        audioSource = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
+        audioSource.clip = policeComing;
+        isPlaySound = false;
+
+
     }
 	
 	// Update is called once per frame
 	void Update () {
         timer += Time.deltaTime;
         lifeTimer += Time.deltaTime;
+        if (!isPlaySound)
+        {
+            audioSource.PlayOneShot(policeComing, 15F);
+            isPlaySound = true;
+        }
+       
         if (!isGoAway)
         {
            // print(GameControl.Instance.XPositionOfPlayer- myTrans.position.x);
