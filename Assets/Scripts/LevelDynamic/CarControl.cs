@@ -51,7 +51,7 @@ public class CarControl : MonoBehaviour {
     {
         if (collision.gameObject.tag == GameContext.Head)
         {
-            GameControl.Instance.islose=true;
+           // GameControl.Instance.islose=true;
         }
     }
 }
