@@ -9,7 +9,7 @@ public class CameraFollow : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-
+        GameControl.Instance.camera = this;
     }
 	
 	// Update is called once per frame

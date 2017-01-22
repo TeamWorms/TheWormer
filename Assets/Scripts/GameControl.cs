@@ -9,6 +9,7 @@ public class GameControl : MonoBehaviour {
     public float timerToPolice;
     public bool PoliceEnable;
     public Transform bornTransform;
+    public GameObject playerPrefab;
 
     [HideInInspector]
     public UIController uiController;
@@ -27,6 +28,9 @@ public class GameControl : MonoBehaviour {
 
     [HideInInspector]
     public bool islose;
+
+    [HideInInspector]
+    public CameraFollow camera;
 
     private float timerToGenerate;
     private float timer;
@@ -105,16 +109,24 @@ public class GameControl : MonoBehaviour {
     {
         print(GameContext.BornPos);
         GameContext.playerGroundCount = 0;
-        PlayerParent.gameObject.SetActive(false);
-        for (int i = 0; i < 4; i++)
-        {
-            PlayerJoint[i].gameObject.SetActive(false);
-            PlayerJoint[i].gameObject.transform.localPosition = PlayerJoint[i].originalPos;
-            PlayerJoint[i].gameObject.SetActive(true);
-        }
-        PlayerParent.transform.position = GameContext.BornPos;
+        /* PlayerParent.gameObject.SetActive(false);
+         for (int i = 0; i < 4; i++)
+         {
+             PlayerJoint[i].gameObject.SetActive(false);
+             PlayerJoint[i].gameObject.transform.localPosition = PlayerJoint[i].originalPos;
+             PlayerJoint[i].gameObject.SetActive(true);
+         }
+         PlayerParent.transform.position = GameContext.BornPos;
 
-        PlayerParent.SetActive(true);
+         PlayerParent.SetActive(true);*/
+        GameObject temp = PlayerParent;
+        GameObject player = Instantiate(playerPrefab);
+        player.transform.position = GameContext.BornPos;
+        PlayerParent = player;
+        PlayerJoint = PlayerParent.GetComponentsInChildren<Jump>();
+        camera.objectToFollow = PlayerJoint[0].transform;
+
+        Destroy(temp);
         if (uiController != null)
         {
             islose = false;
