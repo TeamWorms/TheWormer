@@ -103,6 +103,14 @@ public class GameControl : MonoBehaviour {
 
     public void Restart()
     {
-
+        PlayerParent.transform.position = GameContext.BornPos;
+        for (int i = 0; i < 4; i++)
+        {
+            PlayerJoint[i].transform.position = PlayerJoint[i].originalPos;
+        }
+        if (uiController != null)
+        {
+            uiController.HideLoseGame();
+        }
     }
 }

@@ -14,6 +14,8 @@ public class Jump : MonoBehaviour {
     public AudioClip movementSoundLand;
     public AudioClip movementSoundWater;
 
+    public Vector3 originalPos;
+
     public enum MovementState{
         Ground,
         Water
@@ -36,6 +38,8 @@ public class Jump : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        originalPos = transform.position;
+
         rgb = gameObject.GetComponent<Rigidbody>();
         audioSource = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
         audioSource.clip = movementSoundLand;
