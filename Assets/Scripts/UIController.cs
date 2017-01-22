@@ -3,13 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 public class UIController : MonoBehaviour {
-    public Text loseText;
+    public GameObject losego;
+    
     public void InitUI()
     {
-        loseText.enabled = false;
+        losego.SetActive(false);
     }
 	public void ShowLoseGame()
     {
-        loseText.enabled = true;
+        losego.SetActive(true);
+
+    }
+    public void ReplayButtonDown()
+    {
+        GameControl.Instance.Restart();
     }
 }

@@ -100,4 +100,9 @@ public class GameControl : MonoBehaviour {
             }  
         }  
     }
+
+    public void Restart()
+    {
+
+    }
 }
