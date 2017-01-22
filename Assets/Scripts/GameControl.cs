@@ -138,6 +138,7 @@ public class GameControl : MonoBehaviour {
     public void PlusScore()
     {
         score++;
+        uiController.SetScoreText(score);
     }
     public void ReGeneratePolice()
     {

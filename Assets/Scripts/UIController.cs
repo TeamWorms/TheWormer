@@ -4,11 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 public class UIController : MonoBehaviour {
     public GameObject losego;
+    public GameObject winGO;
     public Text policeAlert;
+    public Text scoreText;
     public void InitUI()
     {
         losego.SetActive(false);
         policeAlert.enabled = false;
+        winGO.SetActive(false);
+        
     }
     public void ShowPoliceAlert()
     {
@@ -17,6 +21,14 @@ public class UIController : MonoBehaviour {
     public void disablePoliceAlert()
     {
         policeAlert.enabled = false;
+    }
+    public void SetScoreText(int score)
+    {
+        scoreText.text = "Score:"+score;
+    }
+    public void ShowWinGame()
+    {
+
     }
     public void ShowLoseGame()
     {
