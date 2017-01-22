@@ -74,7 +74,8 @@ public class Jump : MonoBehaviour {
             }
             Vector3 force = new Vector3(forceX, forceY, 0);
             gameObject.GetComponent<Rigidbody>().AddForce(force);
-            audioSource.PlayOneShot(movementSoundLand, 1F);
+            if(movementSoundLand != null)
+                audioSource.PlayOneShot(movementSoundLand, 1F);
         }
         else if(movementState == MovementState.Water && inputDown() && cooldownWaterRemain <= 0) 
         {
@@ -86,7 +87,8 @@ public class Jump : MonoBehaviour {
             Vector3 force = new Vector3(forceX, forceY, 0);
             gameObject.GetComponent<Rigidbody>().AddForce(force);
             cooldownWaterRemain = cooldownInWater;
-            audioSource.PlayOneShot(movementSoundWater, 1F);
+            if (movementSoundWater != null)
+                audioSource.PlayOneShot(movementSoundWater, 1F);
         }
         if(cooldownWaterRemain > 0)
         {
