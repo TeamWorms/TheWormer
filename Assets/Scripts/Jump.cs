@@ -38,7 +38,7 @@ public class Jump : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        print("start");
+        //print("start");
         originalPos = transform.localPosition;
 
         rgb = gameObject.GetComponent<Rigidbody>();

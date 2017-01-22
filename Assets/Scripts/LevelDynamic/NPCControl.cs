@@ -72,17 +72,14 @@ public class NPCControl : MonoBehaviour {
             {
 
             }
-            //if (GameControl.Instance.XPositionOfPlayer - myTrans.position.x > 4f)
-            //{
-            //    myTrans.position = new Vector3(myTrans.position.x+0.05f, myTrans.position.y, myTrans.position.z);
-            //}
         }
 
         //follow Character
         if (willFollow&&!beginToFollow)
         {
-          // print(Mathf.Abs(GameControl.Instance.XPositionOfPlayer - standingGO.position.x));
-            if (Mathf.Abs(GameControl.Instance.XPositionOfPlayer - standingGO.position.x)<6f)
+            //print(standingGO.position.x);
+            //print(Mathf.Abs(GameControl.Instance.XPositionOfPlayer - standingGO.position.x));
+            if (Mathf.Abs(GameControl.Instance.XPositionOfPlayer - standingGO.position.x)<7f)
             {
                 //NPCword = "I see you";
                 if (!isGenerateList)

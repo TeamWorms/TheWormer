@@ -78,7 +78,7 @@ public class GameControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        
+        XPositionOfPlayer = 0;
         for (int i = 0; i < 4; i++)
         {
             XPositionOfPlayer += PlayerJoint[i].transform.position.x;
