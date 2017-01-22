@@ -4,20 +4,33 @@ using UnityEngine;
 
 public class CarControl : MonoBehaviour {
     public float speed;
+    public GameObject spotLight1;
+    public GameObject spotLight2;
     private Rigidbody carRigi;
     private float timer;
+    private float shinningTime;
+    private bool islight;
     // Use this for initialization
     void Start () {
         carRigi = GetComponentInChildren<Rigidbody>();
         timer = 0;
         speed = 2+1*Random.value;
+        islight = true;
     }
 	
 	// Update is called once per frame
 	void Update () {
         timer += Time.deltaTime;
+        shinningTime += Time.deltaTime;
         if (timer<3)
         {
+            if (timer>1.5f&&shinningTime > 0.2)
+            {
+                spotLight1.SetActive(islight);
+                spotLight2.SetActive(islight);
+                islight = !islight;
+                shinningTime = 0;
+            }
             return;
         }
         if (carRigi.transform.position.z > -42)
