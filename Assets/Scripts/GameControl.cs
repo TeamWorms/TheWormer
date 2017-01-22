@@ -50,7 +50,12 @@ public class GameControl : MonoBehaviour {
         GameContext.isPlayerHid = false;
         PlayerParent = GameObject.FindGameObjectWithTag(GameContext.Player);
         if(GameContext.BornPos == Vector3.zero)
-            GameContext.BornPos = bornTransform.position;
+        {
+            if (bornTransform != null)
+                GameContext.BornPos = bornTransform.position;
+            else
+                GameContext.BornPos = PlayerParent.transform.position;
+        }
         PlayerParent.transform.position = GameContext.BornPos;
         PlayerJoint = PlayerParent.GetComponentsInChildren<Jump>();
         if (GameObject.FindGameObjectWithTag(GameContext.UI)!=null)
