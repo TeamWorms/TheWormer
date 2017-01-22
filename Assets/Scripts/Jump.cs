@@ -85,7 +85,7 @@ public class Jump : MonoBehaviour {
         }
         Vector3 force = new Vector3(forceX, forceY, 0);
 
-        if (movementState == MovementState.Ground && GameContext.playerGroundCount > 0 && inputDown())
+        if (movementState == MovementState.Ground && GameContext.playerGroundCount > 0 && inputDown() && cooldownGroundRemain <= 0)
         {
             rgb.AddForce(force);
             cooldownGroundRemain = cooldownOnGround;
@@ -95,7 +95,7 @@ public class Jump : MonoBehaviour {
 
             GameContext.lastJumpedBodyPart = name;
         }
-        else if(movementState == MovementState.Water && inputDown()) 
+        else if(movementState == MovementState.Water && inputDown() && cooldownGroundRemain <= 0) 
         {
             rgb.AddForce(force);
 
