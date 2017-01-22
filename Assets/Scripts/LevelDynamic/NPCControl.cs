@@ -12,7 +12,6 @@ public class NPCControl : MonoBehaviour {
     public Transform followingGO;
 
 
-
     private Transform myTrans;
     private float timerToJump;
     private Rigidbody rigi;
@@ -23,12 +22,15 @@ public class NPCControl : MonoBehaviour {
     private bool beginToFollow;
     private bool finishRotate;
     private float randomJumpTime;
+
+
+
 	// Use this for initialization
 	void Start () {
         myTrans = GetComponent<Transform>();
         rigi = standingGO.GetComponent<Rigidbody>();
         NPCInputList = new char[4];
-        NPCword = "Hello";
+        NPCword = "Help!";
         isGenerateList = false;
         beginToFollow = false;
         finishRotate = false;
@@ -86,7 +88,7 @@ public class NPCControl : MonoBehaviour {
                 if (!isGenerateList)
                 {
                     GenerateInputList();
-                    NPCword = "Input:";
+                    NPCword = "Teach me to dance:\n";
                     for (int i = 0; i < 4; i++)
                     {
                         NPCword += NPCInputList[i] + ",";
@@ -107,7 +109,7 @@ public class NPCControl : MonoBehaviour {
                 }
             }else
             {
-                NPCword = "hello";
+                NPCword = "Help!";
                 isGenerateList = false;
             }
         }

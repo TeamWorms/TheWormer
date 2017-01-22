@@ -71,17 +71,19 @@ public class Jump : MonoBehaviour {
     {
         return Input.GetKeyDown(keyCode) || Input.GetButtonDown(controllerInputName);
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
 
-        if (forceModifyingObject == null || forceModifyingObject.GetComponent<Jump>().onGround)
-        {
-            forceX = directionalForce;
-        }else
-        {
-            forceX = -directionalForce;
+        if (forceModifyingObject != null){
+            if(forceModifyingObject.GetComponent<Jump>().onGround)
+            {
+                forceX = directionalForce;
+            }else
+            {
+                forceX = -directionalForce;
+            }
         }
         Vector3 force = new Vector3(forceX, forceY, 0);
 
