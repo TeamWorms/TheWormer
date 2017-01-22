@@ -31,7 +31,7 @@ public class PoliceControl : MonoBehaviour {
         spotTimer = 0;
         RightRotate = true;
      
-        TextOfPolice = "Police";
+        TextOfPolice = "";
         transOfSpotLight = myTrans.FindChild("Spotlight");
 
         audioSource = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
@@ -118,12 +118,15 @@ public class PoliceControl : MonoBehaviour {
 
     void OnGUI()
     {
-        Vector3 worldPosition = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
+        Vector3 worldPosition = new Vector3(transform.position.x+2f, transform.position.y + 1f, transform.position.z);
         Vector2 position =Camera.main.WorldToScreenPoint(worldPosition);
         position = new Vector2(position.x, Screen.height - position.y);
-
+        GUIStyle fontStyle = new GUIStyle();
+        fontStyle.normal.background = null;    
+        fontStyle.normal.textColor = new Color(1, 0, 0);  
+        fontStyle.fontSize = 25;
         Vector2 nameSize = GUI.skin.label.CalcSize(new GUIContent(TextOfPolice));
         GUI.color = Color.black;
-        GUI.Label(new Rect(position.x - (nameSize.x / 2), position.y - nameSize.y, nameSize.x, nameSize.y), TextOfPolice);
+        GUI.Label(new Rect(position.x - (nameSize.x / 2), position.y - nameSize.y, nameSize.x, nameSize.y), TextOfPolice,fontStyle);
     }
 }
