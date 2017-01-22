@@ -7,6 +7,8 @@ public class Checkpoint : MonoBehaviour {
     public Transform bornTransform;
     private ParticleSystem particle;
 
+    private bool visited = false;
+
 	// Use this for initialization
 	void Start () {
         particle = GetComponentInChildren<ParticleSystem>();
@@ -18,6 +20,7 @@ public class Checkpoint : MonoBehaviour {
     }
     void OnTriggerEnter(Collider col)
     {
+        if (visited) return;
         for (int i = 0; i < 5; i++)
         {
             GameControl.Instance.PlusScore();
@@ -25,6 +28,7 @@ public class Checkpoint : MonoBehaviour {
         GameContext.BornPos = bornTransform.position;
         //print(GameContext.BornPos);
         particle.startColor = Color.green; //new Color(123,253,161,255); //
-       // GetComponent<MeshRenderer>().material.color = Color.green;
+                                           // GetComponent<MeshRenderer>().material.color = Color.green;
+        visited = true;
     }
 }
