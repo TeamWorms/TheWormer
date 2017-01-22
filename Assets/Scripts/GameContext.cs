@@ -16,4 +16,5 @@ public static class GameContext {
     public static string bornTransform = "bornTransform";
     public static Vector3 BornPos;
     public static int playerGroundCount;
+    public static string lastJumpedBodyPart;
 }

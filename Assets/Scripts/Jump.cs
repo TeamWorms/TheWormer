@@ -8,7 +8,7 @@ public class Jump : MonoBehaviour {
     public string key;
     public int jumpForce;
     public int directionalForce;
-    public GameObject forceModifyingObject;
+    public Jump lastBodyPartForward;
     public float cooldownInWater;
     public float cooldownOnGround;
     public AudioClip movementSoundLand;
@@ -38,7 +38,6 @@ public class Jump : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        //print("start");
         originalPos = transform.localPosition;
 
         rgb = gameObject.GetComponent<Rigidbody>();
@@ -62,11 +61,11 @@ public class Jump : MonoBehaviour {
                 controllerInputName = "AButtonWindows";
                 break;
             case "r":
-                controllerInputName = "RightBumperWindows";
                 keyCode = KeyCode.R;
+                controllerInputName = "RightBumperWindows";
                 break;
         }
-	}
+    }
 
     bool inputDown()
     {
@@ -80,32 +79,31 @@ public class Jump : MonoBehaviour {
         {
             return;
         }
-        if (forceModifyingObject != null){
-            if(forceModifyingObject.GetComponent<Jump>().onGround)
-            {
-                forceX = directionalForce;
-            }else
-            {
-                forceX = -directionalForce;
-            }
+        if (lastBodyPartForward != null)
+        {
+            forceX = (GameContext.lastJumpedBodyPart == lastBodyPartForward.name) ? -directionalForce : directionalForce;
         }
         Vector3 force = new Vector3(forceX, forceY, 0);
 
-        if (movementState == MovementState.Ground && GameContext.playerGroundCount > 0 && inputDown() && cooldownGroundRemain <= 0)
+        if (movementState == MovementState.Ground && GameContext.playerGroundCount > 0 && inputDown())
         {
             rgb.AddForce(force);
             cooldownGroundRemain = cooldownOnGround;
 
             if (movementSoundLand != null)
-                audioSource.PlayOneShot(movementSoundLand, 1F);
+                audioSource.PlayOneShot(movementSoundLand, 15F);
+
+            GameContext.lastJumpedBodyPart = name;
         }
-        else if(movementState == MovementState.Water && inputDown() && cooldownWaterRemain <= 0) 
+        else if(movementState == MovementState.Water && inputDown()) 
         {
             rgb.AddForce(force);
 
             cooldownWaterRemain = cooldownInWater;
             if (movementSoundWater != null)
-                audioSource.PlayOneShot(movementSoundWater, 1F);
+                audioSource.PlayOneShot(movementSoundWater, 15F);
+
+            GameContext.lastJumpedBodyPart = name;
         }
         if (cooldownGroundRemain > 0)
         {
