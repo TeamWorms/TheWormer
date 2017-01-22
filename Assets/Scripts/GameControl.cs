@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameControl : MonoBehaviour {
 
@@ -31,7 +32,7 @@ public class GameControl : MonoBehaviour {
     public HardmodeJump[] HardJoint;
 
 
-     [HideInInspector]
+    [HideInInspector]
     public GameObject PlayerParent;
 
     [HideInInspector]
@@ -92,6 +93,7 @@ public class GameControl : MonoBehaviour {
             uiController = GameObject.FindGameObjectWithTag(GameContext.UI).GetComponent<UIController>();
             uiController.InitUI();
         }
+
         GameObject temp = PlayerParent;
         GameObject player = Instantiate(playerPrefab);
         player.transform.position = GameContext.BornPos;
@@ -106,9 +108,9 @@ public class GameControl : MonoBehaviour {
             HardJoint = PlayerParent.GetComponentsInChildren<HardmodeJump>();
             camera.objectToFollow = HardJoint[0].transform;
         }
-
-
+        
         Destroy(temp);
+
 
         //do something to find trap or others tusff
 
@@ -200,31 +202,32 @@ public class GameControl : MonoBehaviour {
     }
     public void Restart()
     {
-        //print(GameContext.BornPos);
         islose = false;
         GameContext.playerGroundCount = 0;
-        /* PlayerParent.gameObject.SetActive(false);
-         for (int i = 0; i < 4; i++)
-         {
-             PlayerJoint[i].gameObject.SetActive(false);
-             PlayerJoint[i].gameObject.transform.localPosition = PlayerJoint[i].originalPos;
-             PlayerJoint[i].gameObject.SetActive(true);
-         }
-         PlayerParent.transform.position = GameContext.BornPos;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        ////print(GameContext.BornPos);
+        ///* PlayerParent.gameObject.SetActive(false);
+        // for (int i = 0; i < 4; i++)
+        // {
+        //     PlayerJoint[i].gameObject.SetActive(false);
+        //     PlayerJoint[i].gameObject.transform.localPosition = PlayerJoint[i].originalPos;
+        //     PlayerJoint[i].gameObject.SetActive(true);
+        // }
+        // PlayerParent.transform.position = GameContext.BornPos;
 
-         PlayerParent.SetActive(true);*/
-        GameObject temp = PlayerParent;
-        GameObject player = Instantiate(playerPrefab);
-        player.transform.position = GameContext.BornPos;
-        PlayerParent = player;
-        PlayerJoint = PlayerParent.GetComponentsInChildren<Jump>();
-        camera.objectToFollow = PlayerJoint[0].transform;
+        // PlayerParent.SetActive(true);*/
+        //GameObject temp = PlayerParent;
+        //GameObject player = Instantiate(playerPrefab);
+        //player.transform.position = GameContext.BornPos;
+        //PlayerParent = player;
+        //PlayerJoint = PlayerParent.GetComponentsInChildren<Jump>();
+        //camera.objectToFollow = PlayerJoint[0].transform;
 
-        Destroy(temp);
-        if (uiController != null)
-        {
-            islose = false;
-            uiController.HideLoseGame();
-        }
+        //Destroy(temp);
+        //if (uiController != null)
+        //{
+        //    islose = false;
+        //    uiController.HideLoseGame();
+        //}
     }
 }
