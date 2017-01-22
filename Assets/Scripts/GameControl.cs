@@ -109,8 +109,8 @@ public class GameControl : MonoBehaviour {
         for (int i = 0; i < 4; i++)
         {
             PlayerJoint[i].gameObject.SetActive(false);
-            PlayerJoint[i].gameObject.transform.position = PlayerJoint[i].originalPos;
-            PlayerJoint[i].gameObject.SetActive(false);
+            PlayerJoint[i].gameObject.transform.localPosition = PlayerJoint[i].originalPos;
+            PlayerJoint[i].gameObject.SetActive(true);
         }
         PlayerParent.transform.position = GameContext.BornPos;
 
