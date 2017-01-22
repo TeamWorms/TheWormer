@@ -29,8 +29,17 @@ public class NPCControl : MonoBehaviour {
 	void Start () {
         myTrans = GetComponent<Transform>();
         rigi = standingGO.GetComponent<Rigidbody>();
+       
+        
         NPCInputList = new char[4];
-        NPCword = "Help!";
+        if (willFollow)
+        {
+            NPCword = "Help!";
+        }else
+        {
+            NPCword = "";
+        }
+        
         isGenerateList = false;
         beginToFollow = false;
         finishRotate = false;

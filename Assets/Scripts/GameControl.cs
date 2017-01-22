@@ -133,6 +133,7 @@ public class GameControl : MonoBehaviour {
         if (XPositionOfPlayer>winTargetGO.position.x)
         {
             isWin = true;
+            uiController.ShowWinGame();
         }
     }
     public void PlusScore()
