@@ -98,6 +98,7 @@ public class GameControl : MonoBehaviour {
         GameObject player = Instantiate(playerPrefab);
         player.transform.position = GameContext.BornPos;
         PlayerParent = player;
+        if (camera == null) camera = Camera.main.GetComponent<CameraFollow>();
         if(!isHardMode)
         {
             PlayerJoint = PlayerParent.GetComponentsInChildren<Jump>();
