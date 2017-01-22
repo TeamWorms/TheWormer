@@ -68,7 +68,7 @@ public class GameControl : MonoBehaviour {
         timerToGenerate = timerToPolice * (Random.value + 1);
         GameContext.isPlayerHid = false;
         PlayerParent = GameObject.FindGameObjectWithTag(GameContext.Player);
-        winTargetGO= GameObject.FindGameObjectWithTag(GameContext.WinTarget).transform;
+        winTargetGO = GameObject.FindGameObjectWithTag(GameContext.WinTarget).transform;
         isGeneratePolice = false;
         score = 0;
         if (GameContext.BornPos == Vector3.zero)
@@ -86,7 +86,15 @@ public class GameControl : MonoBehaviour {
             uiController = GameObject.FindGameObjectWithTag(GameContext.UI).GetComponent<UIController>();
             uiController.InitUI();
         }
-      
+        GameObject temp = PlayerParent;
+        GameObject player = Instantiate(playerPrefab);
+        player.transform.position = GameContext.BornPos;
+        PlayerParent = player;
+        PlayerJoint = PlayerParent.GetComponentsInChildren<Jump>();
+        camera.objectToFollow = PlayerJoint[0].transform;
+
+        Destroy(temp);
+
         //do something to find trap or others tusff
 
     }
