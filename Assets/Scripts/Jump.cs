@@ -76,7 +76,10 @@ public class Jump : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-
+        if (GameControl.Instance.islose)
+        {
+            return;
+        }
         if (forceModifyingObject != null){
             if(forceModifyingObject.GetComponent<Jump>().onGround)
             {

@@ -7,6 +7,7 @@ public class PoliceControl : MonoBehaviour {
     // Use this for initialization
     public float lifetime;
     public float speed;
+    public GameObject particle;
 
     private Transform myTrans;
     private Rigidbody rigi;
@@ -64,10 +65,11 @@ public class PoliceControl : MonoBehaviour {
             timer = 0;
         }
 
-        if (lifeTimer> lifetime&&!GameControl.Instance.islose)
+        if ((lifeTimer> lifetime&&!GameControl.Instance.islose)|| GameControl.Instance.isWin)
         {
             TextOfPolice = "I am tired of being a police";
             transOfSpotLight.gameObject.SetActive(false);
+            particle.SetActive(false);
             isGoAway = true;
             //
            // Destroy(this.gameObject);

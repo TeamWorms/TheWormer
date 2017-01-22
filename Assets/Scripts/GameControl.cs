@@ -10,6 +10,10 @@ public class GameControl : MonoBehaviour {
     public bool PoliceEnable;
     public Transform bornTransform;
     public GameObject playerPrefab;
+    public Transform winTargetGO;
+
+    [HideInInspector]
+    public int score;
 
     [HideInInspector]
     public UIController uiController;
@@ -58,7 +62,9 @@ public class GameControl : MonoBehaviour {
         timerToGenerate = timerToPolice * (Random.value + 1);
         GameContext.isPlayerHid = false;
         PlayerParent = GameObject.FindGameObjectWithTag(GameContext.Player);
+        winTargetGO= GameObject.FindGameObjectWithTag(GameContext.WinTarget).transform;
         isGeneratePolice = false;
+        score = 0;
         if (GameContext.BornPos == Vector3.zero)
         {
             if (bornTransform != null)
@@ -89,7 +95,7 @@ public class GameControl : MonoBehaviour {
         XPositionOfPlayer /= 4;
 
         //police
-        if (PoliceEnable&&!isGeneratePolice)
+        if ((PoliceEnable&&!isGeneratePolice)&&!isWin)
         {
             timer += Time.deltaTime;
             if (timer > timerToGenerate)
@@ -122,7 +128,16 @@ public class GameControl : MonoBehaviour {
             {
                 uiController.ShowLoseGame();
             }  
-        }  
+        }
+
+        if (XPositionOfPlayer>winTargetGO.position.x)
+        {
+            isWin = true;
+        }
+    }
+    public void PlusScore()
+    {
+        score++;
     }
     public void ReGeneratePolice()
     {

@@ -102,6 +102,7 @@ public class NPCControl : MonoBehaviour {
                         // joint.SetActive(true);
                         NPCword = "";
                         beginToFollow = true;
+                        GameControl.Instance.PlusScore();
                     }
                 }
             }else
