@@ -110,6 +110,7 @@ public class GameControl : MonoBehaviour {
         }
         if (uiController != null)
         {
+            islose = false;
             uiController.HideLoseGame();
         }
     }
