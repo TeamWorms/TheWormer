@@ -76,7 +76,7 @@ public class Jump : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (GameControl.Instance.islose)
+        if (GameControl.Instance.islose|| GameControl.Instance.isWin)
         {
             return;
         }

@@ -12,17 +12,15 @@ public class Checkpoint : MonoBehaviour {
         particle = GetComponentInChildren<ParticleSystem>();
 
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
+    public void ResetCheckPoint()
+    {
+        particle.startColor = Color.white;
+    }
     void OnTriggerEnter(Collider col)
     {
         GameContext.BornPos = bornTransform.position;
         //print(GameContext.BornPos);
         particle.startColor = Color.green; //new Color(123,253,161,255); //
-        GetComponent<MeshRenderer>().material.color = Color.green;
+       // GetComponent<MeshRenderer>().material.color = Color.green;
     }
 }

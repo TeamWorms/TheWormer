@@ -13,6 +13,7 @@ public static class GameContext {
     public static string Feet = "Feet";
     public static string UI = "UI";
     public static string WinTarget = "WinTarget";
+    public static string bornTransform = "bornTransform";
     public static Vector3 BornPos;
     public static int playerGroundCount;
 }

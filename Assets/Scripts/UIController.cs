@@ -26,14 +26,26 @@ public class UIController : MonoBehaviour {
     {
         scoreText.text = "Score:"+score;
     }
+    public void ResetScoreText()
+    {
+        scoreText.text = "Score:0";
+    }
     public void ShowWinGame()
     {
-
+        winGO.SetActive(true);
+    }
+    public void HideWinGame()
+    {
+        winGO.SetActive(false);
     }
     public void ShowLoseGame()
     {
         losego.SetActive(true);
 
+    }
+    public void ExitGame()
+    {
+        Application.Quit();
     }
     public void ReplayButtonDown()
     {
@@ -41,7 +53,7 @@ public class UIController : MonoBehaviour {
     }
     public void RestartButtonDown()
     {
-        GameControl.Instance.Restart();
+        GameControl.Instance.RestartWholeLevel();
     }
     public void HideLoseGame()
     {

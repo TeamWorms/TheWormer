@@ -16,6 +16,9 @@ public class GameControl : MonoBehaviour {
     public int score;
 
     [HideInInspector]
+    public GameObject[] checkPointArray;
+
+    [HideInInspector]
     public UIController uiController;
 
     [HideInInspector]
@@ -38,6 +41,9 @@ public class GameControl : MonoBehaviour {
 
     [HideInInspector]
     public CameraFollow camera;
+
+    //[HideInInspector]
+    //public GameObject police;
 
     private float timerToGenerate;
     private float timer;
@@ -72,6 +78,7 @@ public class GameControl : MonoBehaviour {
             else
                 GameContext.BornPos = PlayerParent.transform.position;
         }
+        checkPointArray = GameObject.FindGameObjectsWithTag(GameContext.bornTransform);
         PlayerParent.transform.position = GameContext.BornPos;
         PlayerJoint = PlayerParent.GetComponentsInChildren<Jump>();
         if (GameObject.FindGameObjectWithTag(GameContext.UI)!=null)
@@ -129,8 +136,8 @@ public class GameControl : MonoBehaviour {
                 uiController.ShowLoseGame();
             }  
         }
-
-        if (XPositionOfPlayer>winTargetGO.position.x)
+      //  print(XPositionOfPlayer- winTargetGO.position.x);
+        if ((XPositionOfPlayer-winTargetGO.position.x)>0)
         {
             isWin = true;
             uiController.ShowWinGame();
@@ -147,11 +154,20 @@ public class GameControl : MonoBehaviour {
     }
     public void RestartWholeLevel()
     {
-
+        GameContext.BornPos = new Vector3(-2.3f, 5.26f, -4.26f);
+        isWin = false;
+        uiController.InitUI();
+        score = 0;
+        for (int i = 0; i < checkPointArray.Length; i++)
+        {
+            checkPointArray[i].GetComponent<Checkpoint>().ResetCheckPoint();
+        }
+        Restart();
     }
     public void Restart()
     {
         //print(GameContext.BornPos);
+        islose = false;
         GameContext.playerGroundCount = 0;
         /* PlayerParent.gameObject.SetActive(false);
          for (int i = 0; i < 4; i++)
