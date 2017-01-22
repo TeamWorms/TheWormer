@@ -50,15 +50,15 @@ public class Jump : MonoBehaviour {
         {
             case "q":
                 keyCode = KeyCode.Q;
-                controllerInputName = "LeftBumperWindows";
+                controllerInputName = "LeftTriggerWindows";
                 break;
-            case "w":
+		case "w":
                 keyCode = KeyCode.W;
-                controllerInputName = "XButtonWindows";
+                controllerInputName = "LeftBumperWindows";
                 break;
             case "e":
                 keyCode = KeyCode.E;
-                controllerInputName = "AButtonWindows";
+                controllerInputName = "RightTriggerWindows";
                 break;
             case "r":
                 keyCode = KeyCode.R;
@@ -69,8 +69,8 @@ public class Jump : MonoBehaviour {
 
     bool inputDown()
     {
-        return Input.GetKeyDown(keyCode) || Input.GetButtonDown(controllerInputName);
-    }
+		return Input.GetKeyDown(keyCode) || (controllerInputName.Contains("Trigger") ? Input.GetAxis(controllerInputName) > 0F : Input.GetButtonDown(controllerInputName));
+	}
 
     // Update is called once per frame
     void Update()
