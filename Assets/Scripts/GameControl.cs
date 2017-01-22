@@ -8,6 +8,7 @@ public class GameControl : MonoBehaviour {
     public GameObject police;
     public float timerToPolice;
     public bool PoliceEnable;
+    public Transform bornTransform;
 
     [HideInInspector]
     public UIController uiController;
@@ -47,7 +48,10 @@ public class GameControl : MonoBehaviour {
     void Start () {
         timerToGenerate = timerToPolice * (Random.value + 1);
         GameContext.isPlayerHid = false;
-        PlayerParent = GameObject.FindGameObjectWithTag(GameContext.Player); 
+        PlayerParent = GameObject.FindGameObjectWithTag(GameContext.Player);
+        if(GameContext.BornPos == Vector3.zero)
+            GameContext.BornPos = bornTransform.position;
+        PlayerParent.transform.position = GameContext.BornPos;
         PlayerJoint = PlayerParent.GetComponentsInChildren<Jump>();
         if (GameObject.FindGameObjectWithTag(GameContext.UI)!=null)
         {
