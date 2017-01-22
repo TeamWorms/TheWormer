@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NPCControl : MonoBehaviour {
 
@@ -23,14 +24,14 @@ public class NPCControl : MonoBehaviour {
     private bool finishRotate;
     private float randomJumpTime;
 
-
+    private Text text;
 
 	// Use this for initialization
 	void Start () {
         myTrans = GetComponent<Transform>();
         rigi = standingGO.GetComponent<Rigidbody>();
-       
-        
+        text = gameObject.GetComponentInChildren<Text>();
+
         NPCInputList = new char[4];
         if (willFollow)
         {
@@ -48,6 +49,12 @@ public class NPCControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        if (text != null)
+        {
+            text.text = NPCword;
+        }
+
         //idle stuff
         timerToJump += Time.deltaTime;
         if (timerToJump> randomJumpTime && !beginToFollow)
@@ -94,7 +101,7 @@ public class NPCControl : MonoBehaviour {
                 if (!isGenerateList)
                 {
                     GenerateInputList();
-                    NPCword = "Teach me to dance:\n";
+                    NPCword = "Teach me\nhow to dance:\n";
                     for (int i = 0; i < 4; i++)
                     {
                         NPCword += NPCInputList[i] + ",";
@@ -191,14 +198,14 @@ public class NPCControl : MonoBehaviour {
             }
         }
     }
-    void OnGUI()
-    {
-        Vector3 worldPosition = new Vector3(standingGO.position.x, standingGO.position.y + 5.5f, standingGO.position.z);
-        Vector2 position = Camera.main.WorldToScreenPoint(worldPosition);
-        position = new Vector2(position.x, Screen.height - position.y);
+    //void OnGUI()
+    //{
+    //    Vector3 worldPosition = new Vector3(standingGO.position.x, standingGO.position.y + 5.5f, standingGO.position.z);
+    //    Vector2 position = Camera.main.WorldToScreenPoint(worldPosition);
+    //    position = new Vector2(position.x, Screen.height - position.y);
 
-        Vector2 nameSize = GUI.skin.label.CalcSize(new GUIContent(NPCword));
-        GUI.color = Color.black;
-        GUI.Label(new Rect(position.x - (nameSize.x / 2), position.y - nameSize.y, nameSize.x, nameSize.y), NPCword);
-    }
+    //    Vector2 nameSize = GUI.skin.label.CalcSize(new GUIContent(NPCword));
+    //    GUI.color = Color.black;
+    //    GUI.Label(new Rect(position.x - (nameSize.x / 2), position.y - nameSize.y, nameSize.x, nameSize.y), NPCword);
+    //}
 }
