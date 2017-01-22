@@ -14,14 +14,20 @@ public class FollowJointCollider : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        transform.position = follow.position;
-        if (lookat == null) return;
-        if(gameObject.tag != "Tail")
+        if (follow != null)
         {
-            transform.forward = -(lookat.transform.position - transform.position).normalized;
-        } else
+            transform.position = follow.position;
+        }
+        if (lookat != null)
         {
-            transform.forward = (lookat.transform.position - transform.position).normalized;
+            if (gameObject.tag != "Tail")
+            {
+                transform.forward = -(lookat.transform.position - transform.position).normalized;
+            }
+            else
+            {
+                transform.forward = (lookat.transform.position - transform.position).normalized;
+            }
         }
 
     }

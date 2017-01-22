@@ -10,6 +10,7 @@ public class Jump : MonoBehaviour {
     public int directionalForce;
     public GameObject forceModifyingObject;
     public float cooldownInWater;
+    public float cooldownOnGround;
     public AudioClip movementSoundLand;
     public AudioClip movementSoundWater;
 
@@ -21,6 +22,7 @@ public class Jump : MonoBehaviour {
     public MovementState movementState;
 
     float cooldownWaterRemain;
+    float cooldownGroundRemain;
 
     private KeyCode keyCode;
     private string controllerInputName;
@@ -30,13 +32,16 @@ public class Jump : MonoBehaviour {
     private int forceY = 200;
 
     private AudioSource audioSource;
+    private Rigidbody rgb;
 
     // Use this for initialization
     void Start () {
+        rgb = gameObject.GetComponent<Rigidbody>();
         audioSource = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
         audioSource.clip = movementSoundLand;
 
         movementState = MovementState.Ground;
+        forceY = jumpForce;
         switch (key)
         {
             case "q":
@@ -64,37 +69,43 @@ public class Jump : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
-        if (movementState == MovementState.Ground && GameContext.playerGroundCount > 0 && inputDown())
+	void Update ()
+    {
+
+        if (forceModifyingObject == null || forceModifyingObject.GetComponent<Jump>().onGround)
         {
-            if (forceModifyingObject == null || forceModifyingObject.GetComponent<Jump>().onGround)
-            {
-                forceX = directionalForce;
-                forceY = jumpForce;
-            }
-            Vector3 force = new Vector3(forceX, forceY, 0);
-            gameObject.GetComponent<Rigidbody>().AddForce(force);
-            if(movementSoundLand != null)
+            forceX = directionalForce;
+        }else
+        {
+            forceX = -directionalForce;
+        }
+        Vector3 force = new Vector3(forceX, forceY, 0);
+
+        if (movementState == MovementState.Ground && GameContext.playerGroundCount > 0 && inputDown() && cooldownGroundRemain <= 0)
+        {
+            rgb.AddForce(force);
+            cooldownGroundRemain = cooldownOnGround;
+
+            if (movementSoundLand != null)
                 audioSource.PlayOneShot(movementSoundLand, 1F);
         }
         else if(movementState == MovementState.Water && inputDown() && cooldownWaterRemain <= 0) 
         {
-            if (forceModifyingObject == null || forceModifyingObject.GetComponent<Jump>().onGround)
-            {
-                forceX = directionalForce;
-                forceY = jumpForce;
-            }
-            Vector3 force = new Vector3(forceX, forceY, 0);
-            gameObject.GetComponent<Rigidbody>().AddForce(force);
+            rgb.AddForce(force);
+
             cooldownWaterRemain = cooldownInWater;
             if (movementSoundWater != null)
                 audioSource.PlayOneShot(movementSoundWater, 1F);
         }
-        if(cooldownWaterRemain > 0)
+        if (cooldownGroundRemain > 0)
+        {
+            cooldownGroundRemain -= Time.deltaTime;
+        }
+        if (cooldownWaterRemain > 0)
         {
             cooldownWaterRemain -= Time.deltaTime;
         }
-	}
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
