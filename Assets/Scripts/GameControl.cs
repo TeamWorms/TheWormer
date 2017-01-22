@@ -12,6 +12,7 @@ public class GameControl : MonoBehaviour {
     public Transform bornTransform;
     public GameObject playerPrefab;
     public Transform winTargetGO;
+    public bool isHardMode;
 
     [HideInInspector]
     public int score;
@@ -27,6 +28,9 @@ public class GameControl : MonoBehaviour {
 
     [HideInInspector]
     public Jump[] PlayerJoint;
+    [HideInInspector]
+    public HardmodeJump[] HardJoint;
+
 
     [HideInInspector]
     public GameObject PlayerParent;
@@ -66,6 +70,8 @@ public class GameControl : MonoBehaviour {
     }
 
     void Start () {
+        if (isHardMode)
+            GameContext.isHardMode = true;
         timerToGenerate = timerToPolice * (Random.value + 1);
         GameContext.isPlayerHid = false;
         PlayerParent = GameObject.FindGameObjectWithTag(GameContext.Player);
@@ -92,25 +98,44 @@ public class GameControl : MonoBehaviour {
         GameObject player = Instantiate(playerPrefab);
         player.transform.position = GameContext.BornPos;
         PlayerParent = player;
-        PlayerJoint = PlayerParent.GetComponentsInChildren<Jump>();
-        camera = Camera.main.GetComponent<CameraFollow>();
-        camera.objectToFollow = PlayerJoint[0].transform;
+        if(!isHardMode)
+        {
+            PlayerJoint = PlayerParent.GetComponentsInChildren<Jump>();
+            camera.objectToFollow = PlayerJoint[0].transform;
+        }
+        else
+        {
+            HardJoint = PlayerParent.GetComponentsInChildren<HardmodeJump>();
+            camera.objectToFollow = HardJoint[0].transform;
+        }
+        
         Destroy(temp);
 
 
         //do something to find trap or others tusff
 
     }
-	
-	// Update is called once per frame
-	void Update () {
 
-        XPositionOfPlayer = 0;
-        for (int i = 0; i < 4; i++)
+    // Update is called once per frame
+    void Update() {
+
+        if (GameContext.isHardMode == false)
         {
-            XPositionOfPlayer += PlayerJoint[i].transform.position.x;
+            XPositionOfPlayer = 0;
+            for (int i = 0; i < 4; i++)
+            {
+                XPositionOfPlayer += PlayerJoint[i].transform.position.x;
+            }
+            XPositionOfPlayer /= 4;
+        } else
+        {
+            XPositionOfPlayer = 0;
+            for (int i = 0; i < 12; i++)
+            {
+                XPositionOfPlayer += HardJoint[i].transform.position.x;
+            }
+            XPositionOfPlayer /= 12;
         }
-        XPositionOfPlayer /= 4;
 
         //police
         if ((PoliceEnable&&!isGeneratePolice)&&!isWin&&!GameContext.isPlayerHid)
