@@ -145,9 +145,13 @@ public class GameControl : MonoBehaviour {
     {
         isGeneratePolice = false;
     }
+    public void RestartWholeLevel()
+    {
+
+    }
     public void Restart()
     {
-        print(GameContext.BornPos);
+        //print(GameContext.BornPos);
         GameContext.playerGroundCount = 0;
         /* PlayerParent.gameObject.SetActive(false);
          for (int i = 0; i < 4; i++)

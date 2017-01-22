@@ -21,7 +21,7 @@ public class Checkpoint : MonoBehaviour {
     void OnTriggerEnter(Collider col)
     {
         GameContext.BornPos = bornTransform.position;
-        print(GameContext.BornPos);
+        //print(GameContext.BornPos);
         particle.startColor = Color.green; //new Color(123,253,161,255); //
         GetComponent<MeshRenderer>().material.color = Color.green;
     }
