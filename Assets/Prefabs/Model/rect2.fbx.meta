@@ -1,17 +1,23 @@
 fileFormatVersion: 2
-guid: b0b934abe25da124a8bae9ae9c64800c
-timeCreated: 1485114327
+guid: dbc5884e8c1f0e0478142bf2e8feb0c1
+timeCreated: 1485115074
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: trafficCone
-    400000: //RootNode
-    400002: trafficCone
-    2300000: trafficCone
-    3300000: trafficCone
-    4300000: trafficCone
+    100000: Building
+    100002: cam1
+    100004: cam2
+    100006: light1
+    100008: //RootNode
+    400000: Building
+    400002: cam1
+    400004: cam2
+    400006: light1
+    400008: //RootNode
+    2300000: Building
+    3300000: Building
+    4300000: Building
   materials:
     importMaterials: 1
     materialName: 0

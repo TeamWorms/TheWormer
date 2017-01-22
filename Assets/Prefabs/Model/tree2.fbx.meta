@@ -1,17 +1,17 @@
 fileFormatVersion: 2
-guid: b0b934abe25da124a8bae9ae9c64800c
-timeCreated: 1485114327
+guid: 6df48ecb14d57d94cbcfc320fb286171
+timeCreated: 1485115121
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
-    100002: trafficCone
+    100002: tree_generator
     400000: //RootNode
-    400002: trafficCone
-    2300000: trafficCone
-    3300000: trafficCone
-    4300000: trafficCone
+    400002: tree_generator
+    2300000: tree_generator
+    3300000: tree_generator
+    4300000: tree_generator
   materials:
     importMaterials: 1
     materialName: 0
