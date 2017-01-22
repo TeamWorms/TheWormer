@@ -87,14 +87,16 @@ public class GameControl : MonoBehaviour {
             uiController = GameObject.FindGameObjectWithTag(GameContext.UI).GetComponent<UIController>();
             uiController.InitUI();
         }
+
         GameObject temp = PlayerParent;
         GameObject player = Instantiate(playerPrefab);
         player.transform.position = GameContext.BornPos;
         PlayerParent = player;
         PlayerJoint = PlayerParent.GetComponentsInChildren<Jump>();
+        camera = Camera.main.GetComponent<CameraFollow>();
         camera.objectToFollow = PlayerJoint[0].transform;
-
         Destroy(temp);
+
 
         //do something to find trap or others tusff
 
