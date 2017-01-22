@@ -9,8 +9,14 @@ public class HideWall : MonoBehaviour {
 		
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+	void OnTriggerEnter(Collider col)
+    {
+        GameContext.isPlayerHid = true;
+    }
+
+
+    void OnTriggerExit(Collider col)
+    {
+        GameContext.isPlayerHid = false;
+    }
 }
