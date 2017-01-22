@@ -17,4 +17,5 @@ public static class GameContext {
     public static Vector3 BornPos;
     public static int playerGroundCount;
     public static string lastJumpedBodyPart;
+    public static bool isHardMode = false;
 }

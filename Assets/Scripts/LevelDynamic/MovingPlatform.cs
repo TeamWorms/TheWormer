@@ -46,9 +46,14 @@ public class MovingPlatform : MonoBehaviour {
         //do with the collider
         enableCollider = true;
         bool BreakColliderCheck = false;
-        for (int i = 0; i < 4; i++)
+        int jointNumber = 4;
+        if(GameContext.isHardMode)
         {
-            for (int j = 0; j < 4; j++)
+            jointNumber = 12;
+        }
+        for (int i = 0; i < jointNumber; i++)
+        {
+            for (int j = 0; j < jointNumber; j++)
             {
                 if (PlayerEnterList[j])
                 {
@@ -61,16 +66,34 @@ public class MovingPlatform : MonoBehaviour {
                 break;
             }
           
-          if (myTran.position.y>GameControl.Instance.PlayerJoint[i].transform.position.y)
+            if(GameContext.isHardMode)
             {
-                enableCollider = false;
-                break;
+                if (myTran.position.y > GameControl.Instance.HardJoint[i].transform.position.y)
+                {
+                    enableCollider = false;
+                    break;
+                }
+                if (Mathf.Abs(myTran.position.y - GameControl.Instance.HardJoint[i].transform.position.y) < 0.3f)
+                {
+                    enableCollider = false;
+                    break;
+                }
             }
-            if (Mathf.Abs(myTran.position.y - GameControl.Instance.PlayerJoint[i].transform.position.y)<0.3f)
+            else
             {
-                enableCollider = false;
-                break;
+                if (myTran.position.y > GameControl.Instance.PlayerJoint[i].transform.position.y)
+                {
+                    enableCollider = false;
+                    break;
+                }
+                if (Mathf.Abs(myTran.position.y - GameControl.Instance.PlayerJoint[i].transform.position.y) < 0.3f)
+                {
+                    enableCollider = false;
+                    break;
+                }
             }
+
+            
         }
         boxCollider.enabled = enableCollider;        
 	}
