@@ -4,22 +4,15 @@ using UnityEngine;
 
 public class SpotlightCollider : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public Light SpotLight;
 
     void OnTriggerEnter(Collider col)
     {
         if(col.tag != "Ground" && GameContext.isPlayerHid == false)
         {
-
-            print("spotted");
+            GameObject go= Instantiate(GameControl.Instance.police);
+            go.transform.position = new Vector3(GameControl.Instance.XPositionOfPlayer-20, go.transform.position.y, go.transform.position.z+Random.value*6);
+            SpotLight.color = Color.red;
         }
     }
 
@@ -27,8 +20,16 @@ public class SpotlightCollider : MonoBehaviour {
     {
         if (col.tag != "Ground" && GameContext.isPlayerHid == false)
         {
-
-            print("spotted");
+            //SpotLight.color = Color.white;
+            //print("spotted");
+        }
+    }
+    void OnTriggerExit(Collider col)
+    {
+        if (col.tag != "Ground")
+        {
+            SpotLight.color = Color.white;
+            //print("spotted");
         }
     }
 }

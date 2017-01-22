@@ -8,15 +8,25 @@ public class HideWall : MonoBehaviour {
 	void Start () {
 		
 	}
-	
-	void OnTriggerEnter(Collider col)
+     void Update()
     {
-        GameContext.isPlayerHid = true;
+        if (Mathf.Abs(GameControl.Instance.XPositionOfPlayer-transform.position.x)<10)
+        {
+            GameContext.isPlayerHid = true;
+        }else
+        {
+            GameContext.isPlayerHid = false;
+        }
+    }
+    void OnTriggerEnter(Collider col)
+    {
+
+
     }
 
 
     void OnTriggerExit(Collider col)
     {
-        GameContext.isPlayerHid = false;
+
     }
 }

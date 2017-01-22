@@ -39,14 +39,18 @@ public class PoliceControl : MonoBehaviour {
         if (!isGoAway)
         {
            // print(GameControl.Instance.XPositionOfPlayer- myTrans.position.x);
-            if (myTrans.position.x < GameControl.Instance.XPositionOfPlayer && !GameContext.isPlayerHid)
+            if (myTrans.position.x < GameControl.Instance.XPositionOfPlayer)
             {
                 myTrans.position = new Vector3(myTrans.position.x - speed, myTrans.position.y, myTrans.position.z);
             }
             else
             {
-                TextOfPolice = "What the hell you are doing";
-                GameControl.Instance.islose = true;
+                if (!GameContext.isPlayerHid)
+                {
+                    TextOfPolice = "What the hell you are doing";
+                    GameControl.Instance.islose = true;
+                }
+               
             }
         }else
         {
