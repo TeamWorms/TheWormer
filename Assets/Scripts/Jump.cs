@@ -60,7 +60,7 @@ public class Jump : MonoBehaviour {
 
     bool inputDown()
     {
-        return Input.GetKeyDown(keyCode); //|| Input.GetButtonDown(controllerInputName);
+        return Input.GetKeyDown(keyCode) || Input.GetButtonDown(controllerInputName);
     }
 	
 	// Update is called once per frame
