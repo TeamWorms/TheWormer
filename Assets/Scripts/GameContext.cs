@@ -6,5 +6,11 @@ public static class GameContext {
 
     public static bool isPlayerHid;
     public static string Player = "Player";
+    public static string Head = "Head";
+    public static string Shoulders = "Shoulders";
+    public static string Pelvis = "Pelvis";
+    public static string Knees = "Knees";
+    public static string Feet = "Feet";
+    public static string UI = "UI";
     public static int playerGroundCount;
 }

@@ -59,7 +59,7 @@ public class SpringShoot : MonoBehaviour {
         Rigidbody[] rigidBodies = obj.GetComponentsInChildren<Rigidbody>();
         foreach (var rigidbody in rigidBodies)
         {
-            print("shoot");
+            //print("shoot");
             rigidbody.AddForce(transform.localToWorldMatrix * Vector3.up * force, ForceMode.Impulse);
         }
         animateTimeRemain = animateTime;

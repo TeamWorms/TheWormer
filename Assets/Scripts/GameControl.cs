@@ -10,6 +10,9 @@ public class GameControl : MonoBehaviour {
     public bool PoliceEnable;
 
     [HideInInspector]
+    public UIController uiController;
+
+    [HideInInspector]
     public GameObject[] shelterArray;
 
     [HideInInspector]
@@ -21,6 +24,8 @@ public class GameControl : MonoBehaviour {
     [HideInInspector]
     public float XPositionOfPlayer;
 
+    [HideInInspector]
+    public bool islose;
 
     private float timerToGenerate;
     private float timer;
@@ -42,19 +47,29 @@ public class GameControl : MonoBehaviour {
     void Start () {
         timerToGenerate = timerToPolice * (Random.value + 1);
         GameContext.isPlayerHid = false;
-        PlayerParent = GameObject.FindGameObjectWithTag("Player"); 
-        PlayerJoint = PlayerParent.GetComponentsInChildren<Jump>(); ;
+        PlayerParent = GameObject.FindGameObjectWithTag(GameContext.Player); 
+        PlayerJoint = PlayerParent.GetComponentsInChildren<Jump>();
+        if (GameObject.FindGameObjectWithTag(GameContext.UI)!=null)
+        {
+            uiController = GameObject.FindGameObjectWithTag(GameContext.UI).GetComponent<UIController>();
+            uiController.InitUI();
+        }
+      
         //do something to find trap or others tusff
 
     }
 	
 	// Update is called once per frame
 	void Update () {
+
+        
         for (int i = 0; i < 4; i++)
         {
             XPositionOfPlayer += PlayerJoint[i].transform.position.x;
         }
         XPositionOfPlayer /= 4;
+
+        //police
         if (PoliceEnable)
         {
             timer += Time.deltaTime;
@@ -65,6 +80,15 @@ public class GameControl : MonoBehaviour {
                 timerToGenerate = timerToPolice * (Random.value + 1);
             }
         }
-       
+
+
+        //show UI
+        if (islose)
+        {
+            if (uiController!=null)
+            {
+                uiController.ShowLoseGame();
+            }  
+        }  
     }
 }
