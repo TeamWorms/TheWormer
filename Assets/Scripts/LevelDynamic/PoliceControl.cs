@@ -37,6 +37,7 @@ public class PoliceControl : MonoBehaviour {
         lifeTimer += Time.deltaTime;
         if (!isGoAway)
         {
+           // print(GameControl.Instance.XPositionOfPlayer- myTrans.position.x);
             if (myTrans.position.x < GameControl.Instance.XPositionOfPlayer && !GameContext.isPlayerHid)
             {
                 myTrans.position = new Vector3(myTrans.position.x - speed, myTrans.position.y, myTrans.position.z);

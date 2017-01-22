@@ -27,7 +27,10 @@ public class UIController : MonoBehaviour {
     {
         GameControl.Instance.Restart();
     }
-
+    public void RestartButtonDown()
+    {
+        GameControl.Instance.Restart();
+    }
     public void HideLoseGame()
     {
         losego.SetActive(false);
