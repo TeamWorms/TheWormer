@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FollowCubeCollider : MonoBehaviour {
+public class FollowJointCollider : MonoBehaviour {
 
     public Transform lookat;
     public Transform follow;
