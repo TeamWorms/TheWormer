@@ -85,23 +85,24 @@ public class Jump : MonoBehaviour {
         }
         Vector3 force = new Vector3(forceX, forceY, 0);
 
-        if (movementState == MovementState.Ground && GameContext.playerGroundCount > 0 && inputDown() && cooldownGroundRemain <= 0)
+        if (inputDown())
         {
-            rgb.AddForce(force);
-            cooldownGroundRemain = cooldownOnGround;
+            if (movementState == MovementState.Ground && GameContext.playerGroundCount > 0 && cooldownGroundRemain <= 0)
+            {
+                rgb.AddForce(force);
+                cooldownGroundRemain = cooldownOnGround;
 
-            if (movementSoundLand != null)
-                audioSource.PlayOneShot(movementSoundLand, 15F);
+                if (movementSoundLand != null)
+                    audioSource.PlayOneShot(movementSoundLand, 15F);
+            }
+            else if (movementState == MovementState.Water && cooldownGroundRemain <= 0)
+            {
+                rgb.AddForce(force);
 
-            GameContext.lastJumpedBodyPart = name;
-        }
-        else if(movementState == MovementState.Water && inputDown() && cooldownGroundRemain <= 0) 
-        {
-            rgb.AddForce(force);
-
-            cooldownWaterRemain = cooldownInWater;
-            if (movementSoundWater != null)
-                audioSource.PlayOneShot(movementSoundWater, 15F);
+                cooldownWaterRemain = cooldownInWater;
+                if (movementSoundWater != null)
+                    audioSource.PlayOneShot(movementSoundWater, 15F);
+            }
 
             GameContext.lastJumpedBodyPart = name;
         }
