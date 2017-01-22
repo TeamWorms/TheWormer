@@ -110,7 +110,7 @@ public class GameControl : MonoBehaviour {
         XPositionOfPlayer /= 4;
 
         //police
-        if ((PoliceEnable&&!isGeneratePolice)&&!isWin)
+        if ((PoliceEnable&&!isGeneratePolice)&&!isWin&&!GameContext.isPlayerHid)
         {
             timer += Time.deltaTime;
             if (timer > timerToGenerate)

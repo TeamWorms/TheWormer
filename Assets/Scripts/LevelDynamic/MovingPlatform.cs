@@ -25,6 +25,10 @@ public class MovingPlatform : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (Mathf.Abs(transform.position.x-GameControl.Instance.XPositionOfPlayer)>25)
+        {
+            return;
+        }
         if (rightDirection)
         {
             myTran.position = new Vector3(myTran.position.x - speed, myTran.position.y, myTran.position.z);
