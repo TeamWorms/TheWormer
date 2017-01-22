@@ -82,7 +82,7 @@ public class NPCControl : MonoBehaviour {
         if (willFollow&&!beginToFollow)
         {
           // print(Mathf.Abs(GameControl.Instance.XPositionOfPlayer - standingGO.position.x));
-            if (Mathf.Abs(GameControl.Instance.XPositionOfPlayer - standingGO.position.x)<4f)
+            if (Mathf.Abs(GameControl.Instance.XPositionOfPlayer - standingGO.position.x)<6f)
             {
                 //NPCword = "I see you";
                 if (!isGenerateList)
@@ -174,7 +174,7 @@ public class NPCControl : MonoBehaviour {
             {
                 NPCInputList[i] = 'W';
             }
-            else if (randomValue >= 5 && randomValue < 0.75)
+            else if (randomValue >= 0.5 && randomValue < 0.75)
             {
                 NPCInputList[i] = 'E';
             }

@@ -105,12 +105,12 @@ public class GameControl : MonoBehaviour {
     {
         print(GameContext.BornPos);
         GameContext.playerGroundCount = 0;
-        PlayerParent.SetActive(false);
+        PlayerParent.gameObject.SetActive(false);
         for (int i = 0; i < 4; i++)
         {
-            PlayerJoint[i].enabled = false;
+            PlayerJoint[i].gameObject.SetActive(false);
             PlayerJoint[i].gameObject.transform.position = PlayerJoint[i].originalPos;
-            PlayerJoint[i].enabled = true;
+            PlayerJoint[i].gameObject.SetActive(false);
         }
         PlayerParent.transform.position = GameContext.BornPos;
 
