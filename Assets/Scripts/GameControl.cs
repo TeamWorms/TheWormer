@@ -34,7 +34,9 @@ public class GameControl : MonoBehaviour {
 
     private float timerToGenerate;
     private float timer;
+    private float alertTimer;
     static GameControl _instance;
+    private bool isGeneratePolice;
 
     void Awake()
     {
@@ -53,7 +55,8 @@ public class GameControl : MonoBehaviour {
         timerToGenerate = timerToPolice * (Random.value + 1);
         GameContext.isPlayerHid = false;
         PlayerParent = GameObject.FindGameObjectWithTag(GameContext.Player);
-        if(GameContext.BornPos == Vector3.zero)
+        isGeneratePolice = false;
+        if (GameContext.BornPos == Vector3.zero)
         {
             if (bornTransform != null)
                 GameContext.BornPos = bornTransform.position;
@@ -83,15 +86,29 @@ public class GameControl : MonoBehaviour {
         XPositionOfPlayer /= 4;
 
         //police
-        if (PoliceEnable)
+        if (PoliceEnable&&!isGeneratePolice)
         {
             timer += Time.deltaTime;
             if (timer > timerToGenerate)
             {
                 GameObject go = Instantiate(police);
+                isGeneratePolice = true;
+                uiController.ShowPoliceAlert();
+                go.transform.position = new Vector3(GameControl.Instance.XPositionOfPlayer-25,3.3f,-12);
                 timer = 0;
+                alertTimer = 0;
                 timerToGenerate = timerToPolice * (Random.value + 1);
             }
+        }
+        //police alert
+        if (alertTimer>=0)
+        {
+            alertTimer += Time.deltaTime;
+        }   
+        if (alertTimer>2)
+        {
+            alertTimer = -1;
+            uiController.disablePoliceAlert();
         }
 
 
@@ -104,7 +121,10 @@ public class GameControl : MonoBehaviour {
             }  
         }  
     }
-
+    public void ReGeneratePolice()
+    {
+        isGeneratePolice = false;
+    }
     public void Restart()
     {
         print(GameContext.BornPos);

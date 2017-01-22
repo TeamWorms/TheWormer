@@ -18,6 +18,7 @@ public class PoliceControl : MonoBehaviour {
     private float spotTimer;
     private Transform transOfSpotLight;
     private bool RightRotate;
+    private bool isGoAway;
 	void Start () {
         rigi = GetComponent<Rigidbody>();
         myTrans = GetComponent<Transform>();
@@ -25,6 +26,7 @@ public class PoliceControl : MonoBehaviour {
         lifeTimer = 0;
         spotTimer = 0;
         RightRotate = true;
+     
         TextOfPolice = "Police";
         transOfSpotLight = myTrans.FindChild("Spotlight");
     }
@@ -33,24 +35,41 @@ public class PoliceControl : MonoBehaviour {
 	void Update () {
         timer += Time.deltaTime;
         lifeTimer += Time.deltaTime;
-        if (myTrans.position.x<GameControl.Instance.XPositionOfPlayer&& !GameContext.isPlayerHid)
+        if (!isGoAway)
         {
-            myTrans.position = new Vector3(myTrans.position.x - speed, myTrans.position.y, myTrans.position.z );
-        }
-        else
+            if (myTrans.position.x < GameControl.Instance.XPositionOfPlayer && !GameContext.isPlayerHid)
+            {
+                myTrans.position = new Vector3(myTrans.position.x - speed, myTrans.position.y, myTrans.position.z);
+            }
+            else
+            {
+                TextOfPolice = "What the hell you are doing";
+                GameControl.Instance.islose = true;
+            }
+        }else
         {
-            TextOfPolice = "What the hell you are doing";
+            myTrans.position = new Vector3(myTrans.position.x + speed, myTrans.position.y, myTrans.position.z);
+            if (GameControl.Instance.XPositionOfPlayer- myTrans.position.x > 30)
+            {
+                GameControl.Instance.ReGeneratePolice();
+                Destroy(gameObject);   
+            }
         }
+       
 
-        if (timer>=2)
+        if (timer>=5)
         {
-            rigi.AddForce(new Vector3(0, 300, 0));
+            rigi.AddForce(new Vector3(0, 400, 0));
             timer = 0;
         }
 
-        if (lifeTimer> lifetime)
+        if (lifeTimer> lifetime&&!GameControl.Instance.islose)
         {
-            Destroy(this.gameObject);
+            TextOfPolice = "I am tired of being a police";
+            transOfSpotLight.gameObject.SetActive(false);
+            isGoAway = true;
+            //
+           // Destroy(this.gameObject);
         }
 
         if (transOfSpotLight!=null)
