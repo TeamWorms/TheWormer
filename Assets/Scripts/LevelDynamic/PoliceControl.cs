@@ -94,7 +94,7 @@ public class PoliceControl : MonoBehaviour {
 
     void OnGUI()
     {
-        Vector3 worldPosition = new Vector3(transform.position.x, transform.position.y + 2.5f, transform.position.z);
+        Vector3 worldPosition = new Vector3(transform.position.x+3f, transform.position.y + 1f, transform.position.z);
         Vector2 position =Camera.main.WorldToScreenPoint(worldPosition);
         position = new Vector2(position.x, Screen.height - position.y);
 
