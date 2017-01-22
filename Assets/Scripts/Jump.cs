@@ -38,7 +38,8 @@ public class Jump : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        originalPos = transform.position;
+        print("start");
+        originalPos = transform.localPosition;
 
         rgb = gameObject.GetComponent<Rigidbody>();
         audioSource = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
