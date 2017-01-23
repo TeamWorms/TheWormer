@@ -12,8 +12,8 @@ public class UIController : MonoBehaviour {
     {
         losego.SetActive(false);
         policeAlert.enabled = false;
-        effect.isPlayEffect = false;
-        effect.resetEffect();
+        //effect.isPlayEffect = false;
+        //effect.resetEffect();
         winGO.SetActive(false);
         
     }
@@ -44,7 +44,7 @@ public class UIController : MonoBehaviour {
     public void ShowLoseGame()
     {
         losego.SetActive(true);
-        effect.isPlayEffect = true;
+        //effect.isPlayEffect = true;
 
     }
     public void ExitGame()
