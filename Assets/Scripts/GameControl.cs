@@ -12,6 +12,7 @@ public class GameControl : MonoBehaviour {
     public Transform bornTransform;
     public GameObject playerPrefab;
     public Transform winTargetGO;
+    public AudioClip winSound;
     public bool isHardMode;
 
     [HideInInspector]
@@ -55,6 +56,8 @@ public class GameControl : MonoBehaviour {
     private float alertTimer;
     static GameControl _instance;
     private bool isGeneratePolice;
+    private AudioSource audioSource;
+    private bool isPlaySound;
 
     void Awake()
     {
@@ -112,6 +115,9 @@ public class GameControl : MonoBehaviour {
         
         Destroy(temp);
 
+        audioSource = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
+        audioSource.clip = winSound;
+        isPlaySound = false;
 
         //do something to find trap or others tusff
 
@@ -178,6 +184,11 @@ public class GameControl : MonoBehaviour {
         {
             isWin = true;
             uiController.ShowWinGame();
+            if (!isPlaySound)
+            {
+                audioSource.PlayOneShot(winSound, 5F);
+                isPlaySound = true;
+            }
         }
     }
     public void PlusScore()

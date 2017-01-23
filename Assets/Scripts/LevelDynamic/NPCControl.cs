@@ -11,6 +11,7 @@ public class NPCControl : MonoBehaviour {
     public float timeToRatetDown;
     public Transform standingGO;
     public Transform followingGO;
+    public AudioClip howToDance;
 
 
     private Transform myTrans;
@@ -23,6 +24,7 @@ public class NPCControl : MonoBehaviour {
     private bool beginToFollow;
     private bool finishRotate;
     private float randomJumpTime;
+    private AudioSource audioSource;
 
     private Text text;
 
@@ -45,6 +47,9 @@ public class NPCControl : MonoBehaviour {
         beginToFollow = false;
         finishRotate = false;
         randomJumpTime = 3 * (Random.value+1);
+
+        audioSource = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
+        audioSource.clip = howToDance;
     }
 	
 	// Update is called once per frame
@@ -100,6 +105,7 @@ public class NPCControl : MonoBehaviour {
                 //NPCword = "I see you";
                 if (!isGenerateList)
                 {
+                    audioSource.PlayOneShot(howToDance, 5F);
                     GenerateInputList();
                     NPCword = "Teach me\nhow to dance:\n";
                     for (int i = 0; i < 4; i++)
@@ -198,14 +204,4 @@ public class NPCControl : MonoBehaviour {
             }
         }
     }
-    //void OnGUI()
-    //{
-    //    Vector3 worldPosition = new Vector3(standingGO.position.x, standingGO.position.y + 5.5f, standingGO.position.z);
-    //    Vector2 position = Camera.main.WorldToScreenPoint(worldPosition);
-    //    position = new Vector2(position.x, Screen.height - position.y);
-
-    //    Vector2 nameSize = GUI.skin.label.CalcSize(new GUIContent(NPCword));
-    //    GUI.color = Color.black;
-    //    GUI.Label(new Rect(position.x - (nameSize.x / 2), position.y - nameSize.y, nameSize.x, nameSize.y), NPCword);
-    //}
 }

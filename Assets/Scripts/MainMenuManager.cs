@@ -16,6 +16,7 @@ public class MainMenuManager : MonoBehaviour {
 
     public void StartScene(string sceneName)
     {
+        GameContext.BornPos = Vector3.zero;
         SceneManager.LoadScene(sceneName);
     }
 
