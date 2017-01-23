@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 public class UIController : MonoBehaviour {
     public GameObject losego;
     public GameObject winGO;
@@ -62,5 +64,10 @@ public class UIController : MonoBehaviour {
     public void HideLoseGame()
     {
         losego.SetActive(false);
+    }
+
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }
